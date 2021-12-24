@@ -2,15 +2,30 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
+    <!--针对IE浏览器的一个特殊配置，含义是让IE浏览器以最高的渲染级别渲染页面-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- 开启移动端的理想视口-->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!---配置页面图标，BASE_URL指的路径是public,在.HTML页面中配置图标或者其他路径，使用BASE_URL，不然会有形形色色的问题-->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+
+
+    <!-- 引入第三方样式样式(资源放在public下，需采用href="<%= BASE_URL %>css/bootstrap.css") -->
+    <!-- 如果放在src下，需要在VUE文件中, 采用import .css方式  -->
+    <link rel="stylesheet" href="<%= BASE_URL %>css/bootstrap.css">    
+
+    <!--配置网页标题，webpack方式-->
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+    <!--当浏览器不支持JS时，noscript中的元素就会被渲染-->
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+
+    <!--VM容器-->
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
