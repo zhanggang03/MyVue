@@ -240,7 +240,55 @@ vue 脚手架配置代理服务器：
         </script>
 
 
+###VUEX
+1、创建文件 /src/store/index.js
+//引入VUE核心库
+import Vue from 'vue'
+//引入Vuex
+import Vuex from 'vuex'
+//应用VUEX插件
+Vue.use(Vuex)
 
+//准备actions--用于相应组件中的动作
+const actions = {
+  jia(context, value){
+        context.commit("JIA",value);
+    },
+}
+
+//准备mutations --用于操作数据
+const mutations = {
+   JIA(state, value){
+        state.sum += value;
+    },
+}
+
+//准备state -- 用于存储数据
+const state = {
+      sum:0 //当前和
+}
+
+//创建并暴露store
+export default new Vuex.Store({
+    actions,
+    mutations,
+    state
+})
         
 
 
+2、在main.js中创建并传入store配置项
+//引入store
+import store from './store'
+new Vue({
+  //完成功能，将APP组件放入容器中
+  render: h => h(App),
+  store,
+  beforeCreate(){
+    Vue.prototype.$bus = this
+  },
+}).$mount('#app')
+
+3、组件中读取vuex中数据，$store.state.sum
+4、组件中修改vuex的数据，$store.dispatch("actions中的方法名", 数据)  后者 $store.commit("mutations中的方法名", 数据);
+  备注：若没有网络请求或者其他业务逻辑，组件中也可以越过actions,即不写dispatch,直接编写commit;

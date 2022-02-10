@@ -8,6 +8,9 @@ import Vue from 'vue'
 //引入APP组件，他是所有组件的父组件
 import App from './App.vue'
 
+//引入store
+import store from './store'
+
 //关闭VUE的生产提示
 Vue.config.productionTip = false
 
@@ -15,7 +18,8 @@ Vue.config.productionTip = false
 new Vue({
   //完成功能，将APP组件放入容器中
   render: h => h(App),
+  store,
   beforeCreate(){
     Vue.prototype.$bus = this
-  }
+  },
 }).$mount('#app')
