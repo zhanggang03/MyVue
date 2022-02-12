@@ -292,3 +292,37 @@ new Vue({
 3、组件中读取vuex中数据，$store.state.sum
 4、组件中修改vuex的数据，$store.dispatch("actions中的方法名", 数据)  后者 $store.commit("mutations中的方法名", 数据);
   备注：若没有网络请求或者其他业务逻辑，组件中也可以越过actions,即不写dispatch,直接编写commit;
+
+5、四个map方法的使用
+  5.1、mapState方法：用于帮助我们映射state中的数据为计算属性
+    computed: {
+        //借助mapState生成计算属性，从state中获取数据（对象写法）
+        //...mapState({sum:'sum',school:'school',subject:'subject'}),
+        //借助mapState生成计算属性，从state中获取数据（数组写法）
+        ...mapState(['sum','school','subject']),
+    }
+
+  5.2、mapGetters方法：用于帮助我们映射getters中的数据为计算属性
+      computed: {
+        //借助mapGetters生成计算属性，从getters中获取数据（对象写法）
+        //...mapGetters({bigSum:'bigSum'}),
+        //借助mapGetters生成计算属性，从getters中获取数据（数组写法）
+        ...mapGetters(['bigSum']),
+    }
+
+  5.3、mapActions方法：用于帮助我们生成与Actions对话的方法，及：包括$store.dispatch(XXX)的函数
+  methods: {
+        //借助mapActions生成对应的方法，方法中会调用dispatch去联系Actions（对象方法）
+        //...mapActions({jiaOdd:"jiaOdd",jiaWait:"jiaWait"}),
+
+        //借助mapActions生成对应的方法，方法中会调用dispatch去联系Actions（对象方法）
+        ...mapActions(["jiaOdd","jiaWait"]),
+    }
+  5.4、mapMutations方法：用于帮助我们生成与Mutations对话的方法，及：包括$store.commit(XXX)的函数
+  methods: {
+         //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
+        //...mapMutations({JIA:"JIA",JIAN:"JIAN"}),
+
+         //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
+        ...mapMutations(["JIA","JIAN"]),
+    }

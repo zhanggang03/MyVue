@@ -10,23 +10,25 @@
             <option value="2">2</Option>
             <option value="3">3</Option>
         </select>
-        <button @click="increment">+</button>
-        <button @click="decrement">-</button>
-        <button @click="incrementOdd">当前求和为奇数再加</button>
-        <button @click="decrementWait">等一等再加</button>
+        <button @click="JIA(n)">+</button>
+        <button @click="JIAN(n)">-</button>
+        <button @click="jiaOdd(n)">当前求和为奇数再加</button>
+        <button @click="jiaWait(n)">等一等再加</button>
     </div>
 </template>
 
 <script>
-import {mapState,mapGetters} from 'vuex'
+import {mapState,mapGetters,mapActions,mapMutations} from 'vuex'
 export default {
-    name:"CountVuex",
+    name:"CountVuexMapMethods",
     data() {
         return {
             n:1,  //当前选择的数字
         }
     },
     methods: {
+        //程序员亲自写的方法
+        /*
         increment(){
             this.$store.commit('JIA',this.n);
         },
@@ -39,7 +41,17 @@ export default {
         },
         decrementWait(){
             this.$store.dispatch('jiaWait',this.n);
-        }
+        }*/
+
+        //借助mapActions生成对应的方法，方法中会调用dispatch去联系Actions（对象方法）
+        //...mapActions({jiaOdd:"jiaOdd",jiaWait:"jiaWait"}),
+         //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
+        //...mapMutations({JIA:"JIA",JIAN:"JIAN"}),
+
+        //借助mapActions生成对应的方法，方法中会调用dispatch去联系Actions（对象方法）
+        ...mapActions(["jiaOdd","jiaWait"]),
+         //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
+        ...mapMutations(["JIA","JIAN"]),
     },
     computed: {
         //借助mapState生成计算属性，从state中获取数据（对象写法）
