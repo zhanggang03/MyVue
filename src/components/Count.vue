@@ -1,44 +1,41 @@
 <template>
     <div>
         <h1>当前求和为：{{sum}}</h1>
+        <h1>当前求和10倍为：{{bigSum}}</h1>
+        <h1>我正在{{school}},{{subject}}</h1>
+        <h3 style="color:red">下方组件的总人数是{{personList.length}}</h3>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</Option>
             <option value="3">3</Option>
         </select>
-        <button @click="increment">+</button>
-        <button @click="decrement">-</button>
-        <button @click="incrementOdd">当前求和为奇数再加</button>
-        <button @click="decrementWait">等一等再加</button>
+        <button @click="JIA(n)">+</button>
+        <button @click="JIAN(n)">-</button>
+        <button @click="jiaOdd(n)">当前求和为奇数再加</button>
+        <button @click="jiaWait(n)">等一等再加</button>
     </div>
 </template>
 
 <script>
+import {mapState,mapGetters,mapActions,mapMutations} from 'vuex'
 export default {
     name:"Count",
     data() {
         return {
             n:1,  //当前选择的数字
-            sum:0 //当前的和
         }
     },
     methods: {
-        increment(){
-            this.sum += this.n;
-        },
-        decrement(){
-            this.sum -= this.n;
-        },
-        incrementOdd(){
-            if(this.n % 2 === 1){
-                this.sum += this.n;
-            }
-        },
-        decrementWait(){
-            setTimeout(() =>{
-                this.sum += this.n;
-            }, 1000);
-        }
+        //借助mapActions生成对应的方法，方法中会调用dispatch去联系Actions（对象方法）
+        ...mapActions(["jiaOdd","jiaWait"]),
+         //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
+        ...mapMutations(["JIA","JIAN"]),
+    },
+    computed: {
+        //借助mapState生成计算属性，从state中获取数据（数组写法）
+        ...mapState(['sum','school','subject','personList']),
+        //借助mapGetters生成计算属性，从getters中获取数据（数组写法）
+        ...mapGetters(['bigSum']),
     },
     mounted() {
         console.log(this);
