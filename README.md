@@ -326,3 +326,61 @@ new Vue({
          //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
         ...mapMutations(["JIA","JIAN"]),
     }
+  
+6、VUEX模块化+命名空间
+  6.1、目的：让代码更好的维护，让多种数据分类更加准确
+  6.2、修改Store.js
+     --count.js
+    export default {
+    namespaced: true,    //VUEX模块化，必须配置namespaced为true
+    actions:{......},
+    mutations:{......},
+    state:{......},
+    getters:{......}
+  }
+
+    --personList.js
+    export default {
+    namespaced: true,    //VUEX模块化，必须配置namespaced为true
+    actions:{......},
+    mutations:{......},
+    state:{......},
+    getters:{......}
+  }
+
+     --store/index.js
+     import count from './count'
+     import personList from './personList'
+
+    export default new Vuex.Store({
+    modules:{
+        countOptions: count,
+        personOptions: personList
+     }
+    })
+
+    6.3、开启命名空间后，组件中读取state数据：
+    //方式一：自己直接读取
+    this.$store.state.personOptions.personList
+    //方式二：借助mapState读取
+    ......mapState('countOptions',['sum','school','subject'])
+
+    6.4、开启命名空间后，组件中读取getters数据
+    //方式一：自己直接读取
+    this.$store.getters['personOptions/firstPeopleName']
+    //方式二：借助mapGetters读取
+    ......mapGetters('countOptions',['bigSum']);
+
+    6.5、开启命名空间后，组件中调用dispatch
+    //方式一：自己直接dispatch
+    this.$store.dispatch('personOptions/addPersonWang',person)
+    //方式二：借助mapActions:
+    ......mapActions('countOptions',["jiaOdd","jiaWait"])
+
+    6.6、开启命名空间后，组件中调用commit
+    //方式一：自己直接commit
+    this.$store.commit('personOptions/ADD_PERSON',personObj)
+    //方式二：借助mapMutations
+    ......mapMutations('countOptions',["JIA","JIAN"])
+
+

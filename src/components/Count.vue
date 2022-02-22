@@ -27,15 +27,16 @@ export default {
     },
     methods: {
         //借助mapActions生成对应的方法，方法中会调用dispatch去联系Actions（对象方法）
-        ...mapActions(["jiaOdd","jiaWait"]),
+        ...mapActions("countOptions",["jiaOdd","jiaWait"]),
          //借助mapMutations生成对应的方法，方法中会调用commit去联系Mutations（对象方法）
-        ...mapMutations(["JIA","JIAN"]),
+        ...mapMutations("countOptions",["JIA","JIAN"])
     },
     computed: {
         //借助mapState生成计算属性，从state中获取数据（数组写法）
-        ...mapState(['sum','school','subject','personList']),
+        ...mapState("countOptions",['sum','school','subject']),
+        ...mapState("personOptions",['personList']),
         //借助mapGetters生成计算属性，从getters中获取数据（数组写法）
-        ...mapGetters(['bigSum']),
+        ...mapGetters("countOptions",['bigSum']),
     },
     mounted() {
         console.log(this);
