@@ -240,7 +240,7 @@ vue 脚手架配置代理服务器：
         </script>
 
 
-###VUEX
+## VUEX
 1、创建文件 /src/store/index.js
 //引入VUE核心库
 import Vue from 'vue'
@@ -382,5 +382,70 @@ new Vue({
     this.$store.commit('personOptions/ADD_PERSON',personObj)
     //方式二：借助mapMutations
     ......mapMutations('countOptions',["JIA","JIAN"])
+
+  ## VUE-ROUTER
+  一、基本使用
+     1.安装vue-router,命令 npm i vue-router
+     2.引用插件 Vue.use(VueRouter)
+     3.编写router配置项
+       router/index.js
+
+  //改文件专门用于创建整个应用的路由器
+import VueRouter from 'vue-router'
+//引入组件
+import About from '../pages/About'
+import Home from '../pages/Home'
+
+//创建router实例对象，去管理一组一组的路由规则
+export default new VueRouter({
+    routes:[
+        {
+            'path':'/about',
+            component:About
+        },
+        {
+            'path':'/home',
+            component:Home
+        }
+    ]
+})
+
+    4.实现切换（active-class可配置高亮样式）
+       	<router-link class="list-group-item" active-class="active" to="/about">About</router-link>
+
+    5.指定展示位置
+      <router-view></router-view>
+
+  二、几个注意点
+    1.路由组件通常存放在pages文件夹中，一般组件通常存放在components文件夹；
+    2.通过切换，隐藏路由组件，默认是被销毁掉的，需要的时候去挂载
+    3.每个路由组件都有自己$route（路由）属性，里面存储着自己的路由信息
+    4.这个应用只有一个ruoter（路由器）,可以通过组件中的$router属性获得
+
+  三、多级路由
+    1.配置路由规则，使用children配置项：
+    routes:[
+        {
+            'path':'/about',  //父级路由，必须带'/'
+            component:About
+        },{
+            'path':'/home',
+            component:Home,
+            children:[
+                {
+                    path:'message',   //子级路由，不能带'/'
+                    component:Message
+                },{
+                    path:'news',
+                    component:News
+                }
+            ]
+        }
+    ]
+
+    2.跳转：
+    <router-link class="list-group-item" active-class="active" to="/home/news"> News</router-link>
+
+
 
 
