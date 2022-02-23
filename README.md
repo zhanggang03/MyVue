@@ -446,6 +446,48 @@ export default new VueRouter({
     2.跳转：
     <router-link class="list-group-item" active-class="active" to="/home/news"> News</router-link>
 
+  四、路由的query参数
+    1.传递参数：
+     <!-- 跳转路由并携带query参数，to 的字符串写法 -->
+     <router-link :to="`/home/message/detail?id=666&title=你好`">跳转</router-link>
+
+      <!-- 跳转路由并携带query参数，to 的对象写法 - -->
+                <router-link :to="{
+                    path : '/home/message/detail',
+                    query: {
+                        id:666,
+                        title:'你好'
+                    }
+                    }">跳转</router-link>
+
+    2.接受参数：
+     $route.query.id
+     $route.query.title
+
+  五、命名路由
+    1.作用：可以简化路由的跳转
+    2.如何使用
+       I.给路由命名：
+         {
+              name:'xaingqing',   //给路由命名
+              path:'detail',
+              component:Detail
+          }
+        II.简化跳转
+        <!-- 简化前，需要写完整的路径 -->
+        <router-link to="demo/test/detail">跳转</router-link>
+
+        <!-- 简化后，直接通过名字跳转 -->
+        <router-link :to="{name:'xiangqing'}">跳转</router-link>
+
+        <!-- 简化写法，配合传递参数 - -->
+        <router-link :to="{
+                    name : 'xaingqing',
+                    query: {
+                        id:666,
+                        title:'张三'
+                    }
+                    }">跳转</router-link>
 
 
 
