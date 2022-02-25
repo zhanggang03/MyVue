@@ -539,3 +539,25 @@ export default new VueRouter({
     2、浏览器的历史记录有两种写入方式：分别是push和replace，push为追加历史记录，replace是替换当前记录。路由跳转时候默认为push
     3、如何开启replace模式：<router-link replace .....>跳转</router-likn>
 
+  九、编程式路由导航
+    1、作用：不借助<router-link>实现路由跳转，让路由跳转更加灵活
+    2、具体编码：
+       借助$router的两个API跳转
+       this.$router.push({
+                name : 'xaingqing',
+                    query: {
+                        id:XXXX,
+                        title:XXXX
+                    }
+            })
+      this.$router.replace({
+                name : 'xaingqing',
+                    query: {
+                        id:XXXX,
+                        title:XXXX
+                    }
+            })
+
+      this.$router.forward()  //前进
+      this.$router.back()   //后退
+      this.$router.go(-2)   //可前进也可后退
