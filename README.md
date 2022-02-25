@@ -488,6 +488,29 @@ export default new VueRouter({
                         title:'张三'
                     }
                     }">跳转</router-link>
+  六、路由的params参数
+     1、配置路由：声明接受params参数
+                       {
+                            name:'xaingqing',
+                            path:'detail/:id/:title',  //使用占位符声明params参数
+                            component:Detail
+                        }
 
+    2、传递参数：
+                <!-- 跳转路由并携带params参数，to 的字符串写法 -->
+                <router-link :to="`/home/message/detail/6666/你好`">跳转</router-link>-->
 
+                <!-- 跳转路由并携带params参数，to 的对象写法(必须使用name,不能使用path) - -->
+                <router-link :to="{
+                    name : 'xaingqing',
+                    params: {
+                        id:6666,
+                        title:'你好'
+                    }
+                    }">跳转</router-link>
+    特别注意：路由携带params参数时，若使用to的对象写法，则不能使用path配置项，必须使用name配置项
+   
+   3、接受参数：
+     $route.params.id
+     $route.params.title
 
