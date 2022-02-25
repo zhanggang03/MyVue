@@ -514,3 +514,23 @@ export default new VueRouter({
      $route.params.id
      $route.params.title
 
+  七、路由的props配置
+     作用：让路由组件更方便的传递参数
+                          {
+                            name:'xaingqing',
+                            //path:'detail/:id/:title',
+                            path:'detail',
+                            component:Detail,
+
+                            //第一种写法：props值为对象，该对象中的所有key-value都会以props的形式传递给Detail组件
+                            //props:{id: 1,title: 'hello'}
+
+                            //第二种写法：props值为布尔值，若布尔值为true，则把该路由组件收到的所有params参数，通过props传递给Detail组件
+                            //props:true
+
+                            //第三种写法：props为函数（参数为$route），该函数返回的对象中每一组key-value都会通过props传递Detail组件
+                            props({query}){
+                                return {id:query.id,title:query.title}
+                            }
+                        }
+
