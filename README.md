@@ -561,3 +561,19 @@ export default new VueRouter({
       this.$router.forward()  //前进
       this.$router.back()   //后退
       this.$router.go(-2)   //可前进也可后退
+    
+  十、缓存路由组件
+     1.作用：让不展示的路由组件保持挂载，不被销毁
+     2.具体编码
+            <!--缓存多个路由组件(数组)-->
+            <!--<keep-alive :include="['News','Messages']" > 
+                <router-view></router-view>
+            </keep-alive>-->
+
+            <!--缓存一个路由组件(字符串)-->
+            <keep-alive include="News">  <!-- include为组件name -->
+                <router-view></router-view>
+            </keep-alive>
+  十一、两个新的生命周期钩子（用于配合keepAlive状态使用）
+     1.作用：路由组件所独有的两个钩子，用于获取路由组件的激活状态
+     2.具体名字：  activated 路由组件被激活时触发     deactivated 路由组件失活是触发
