@@ -577,3 +577,35 @@ export default new VueRouter({
   十一、两个新的生命周期钩子（用于配合keepAlive状态使用）
      1.作用：路由组件所独有的两个钩子，用于获取路由组件的激活状态
      2.具体名字：  activated 路由组件被激活时触发     deactivated 路由组件失活是触发
+
+  十二、路由守卫
+     1.作用：对路由进行权限控制
+     2.分类：全局守卫、独享守卫、组件内守卫
+     3.全局路由守卫：
+//全局前置路由守卫----初始化的时候被调用、每次路由切换之前被调用
+router.beforeEach((to,from,next)=>{
+    console.log("前置路由守卫",to,from);
+    //if(to.name === "xiaoxi" || to.name === "xinwen"){
+    if(to.meta.isAuth){//判断是否需要鉴权
+        if(localStorage.getItem('aiguigu') === 'true'){  //权限控制的具体规则
+            next()  //放行
+        }else{
+            alert("不允许访问")
+            //next({name:'guanyu'})  //跳转
+        }
+    }else{
+        next();  //放行
+    }
+
+})
+
+//全局后置路由守卫----初始化的时候被调用、每次路由切换之后被调用
+router.afterEach((to,from,next)=>{
+    console.log("后置路由守卫",to,from)
+    if(to.meta.title){
+        document.title = to.meta.title  //修改网页title
+    }  
+    else{
+        document.title = 'vue_test'
+    }
+});
